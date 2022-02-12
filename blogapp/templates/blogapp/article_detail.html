@@ -1,0 +1,54 @@
+{% extends 'base_layout.html' %}
+
+{% load static %}
+
+{% block title %} Article: {{article.title}} {% endblock %}
+
+
+{% block header %}
+
+    <header class="masthead" style="background-image: url('{{article.thumb.url}}');">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>{{article.title}}</h1>
+                        <!-- Divider-->
+                        <hr class="my-4"/>
+                        <div style="height: 10px;"></div>
+                        <span class="subheading">{{article.subtitle}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+{% endblock %}
+
+
+{% block content %}
+
+    <!-- Divider-->
+    <hr class="my-4"/>
+
+    <h4>{{article.subtitle}}</h4>
+
+    <div class="post-preview">
+        <p>{{article.body}}</p>
+        
+        
+        <p class="post-meta">
+            Posted by
+            <a href="{% url 'articles:author' article.author.id %}">{{article.author}}</a>
+            on {{article.created}}&nbsp;&nbsp;|&nbsp;&nbsp;{% for category in article.category.all %}<a href="{% url 'articles:category' category.id %}">{{category}}</a>&nbsp;&nbsp;|&nbsp;&nbsp;{% endfor %}
+        </p>
+    </div>
+
+    <!-- Divider-->
+    <hr class="my-4" />
+
+    <!-- Pager-->
+    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="{% url 'articles:allarticles' %}">All Articles →</a></div>
+
+{% endblock %}
+

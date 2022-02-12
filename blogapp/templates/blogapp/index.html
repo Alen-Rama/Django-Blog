@@ -1,0 +1,65 @@
+{% extends 'base_layout.html' %}
+
+{% load static %}
+
+{% block title %} Home {% endblock %}
+
+<!-- Page Header-->
+
+{% block header %}
+
+    <header class="masthead index-header">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>Games</h1>
+                        <!-- Divider-->
+                        <hr class="my-4"/>
+                        <div style="height: 10px;"></div>
+                        <span class="subheading">Articles about video games</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+{% endblock %}
+
+<!-- Main Content-->
+
+{% block content %}
+
+    {% if not articles %}
+        <!-- Divider-->
+        <hr class="my-4"/>
+        <span class="subheading">This is very empty, do you want to create a new article? <a class="link-create link-createarticle" href="{% url 'articles:create' %}">click here</a></span>
+    {% endif %}
+
+    <!-- Divider-->
+    <hr class="my-4"/>
+
+    {% for article in articles %}
+
+        <!-- Post preview-->
+        <div class="post-preview">
+            <a href="{% url 'articles:detail' article.id %}">
+                <h2 class="post-title">{{article.title}}</h2>
+                <h3 class="post-subtitle">{{article.snippet}}</h3>
+            </a>
+            <p class="post-meta">
+                Posted by
+                <a href="{% url 'articles:author' article.author.id %}">{{article.author}}</a>
+                on {{article.created}}&nbsp;&nbsp;|&nbsp;&nbsp;{% for category in article.category.all %}<a href="{% url 'articles:category' category.id %}">{{category}}</a>&nbsp;&nbsp;|&nbsp;&nbsp;{% endfor %}
+            </p>
+        </div>
+        <!-- Divider-->
+        <hr class="my-4"/>
+
+    {% endfor %}
+    
+    <!-- Pager-->
+    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="{% url 'articles:allarticles' %}">All Articles →</a></div>
+
+{% endblock %}
+

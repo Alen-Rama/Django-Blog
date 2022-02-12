@@ -1,0 +1,46 @@
+{% extends 'base_layout.html' %}
+
+{% load static %}
+
+{% block title %} Home {% endblock %}
+
+<!-- Page Header-->
+
+{% block header %}
+
+    <header class="masthead login-header">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>Log in</h1>
+                        <!-- Divider-->
+                        <hr class="my-4"/>
+                        <div style="height: 10px;"></div>
+                        <span class="subheading">Log in to create new articles</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+{% endblock %}
+
+<!-- Main Content-->
+
+{% block content %}
+
+    <!-- Divider-->
+    <hr class="my-4"/>
+
+    <form class="login-form" method="POST">{% csrf_token %}
+        {{form}}
+        <br>
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{request.GET.next}}">
+        {% endif %}
+        <button type="submit" class="btn btn-primary submit">Log in</button>
+    </form>
+
+{% endblock %}
+

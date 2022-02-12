@@ -1,0 +1,64 @@
+{% extends 'base_layout.html' %}
+
+{% load static %}
+
+{% block title %} Home {% endblock %}
+
+<!-- Page Header-->
+
+{% block header %}
+
+    <header class="masthead index-header">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>Personal info</h1>
+                        {% if 'valid' in request.GET %}
+                            <!-- Divider-->
+                            <hr class="my-4"/>
+                            <span class="subheading">Successfully registered user</span>
+                        {% elif 'novalid' in request.GET %}
+                            <!-- Divider-->
+                            <hr class="my-4"/>
+                            <span class="subheading">There is already exist a user with that email</span>
+                        {% else %}
+                            <span class="subheading"></span>  
+                        {% endif %}
+                        <div style="height: 10px;"></div>
+                        <span class="subheading"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+{% endblock %}
+
+<!-- Main Content-->
+
+{% block content %}
+
+    <!-- Divider-->
+    <hr class="my-4"/>
+
+    <div class="post-preview">
+        <form method="POST">{% csrf_token %}
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">First name</label>
+                <input name="name" class="form-control" id="exampleFormControlInput1" rows="3" placeholder="First name...">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Last name</label>
+                <input name="last_name" class="form-control" id="exampleFormControlInput1" rows="3" placeholder="Last name...">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <input name="email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            </div>
+            <button type="submit" class="btn btn-primary submit">Submit</button>
+        </form>
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,58 @@
+{% extends 'base_layout.html' %}
+
+{% load static %}
+
+{% block title %} Home {% endblock %}
+
+<!-- Page Header-->
+
+{% block header %}
+
+    <header class="masthead create-header">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>Create an article</h1>
+                        {% if 'valid' in request.GET %}
+                            <!-- Divider-->
+                            <hr class="my-4"/>
+                            <span class="subheading">Article created successfully</span>
+                        {% elif 'novalid' in request.GET %}
+                            <!-- Divider-->
+                            <hr class="my-4"/>
+                            <span class="subheading">There was an unexpected error</span>
+                        {% endif %}
+                        <div style="height: 10px;"></div>
+                        <span class="subheading"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+{% endblock %}
+
+<!-- Main Content-->
+
+{% block content %}
+
+    {% if not categories %}
+        <!-- Divider-->
+        <hr class="my-4"/>
+        <span class="subheading">To create an article it is necessary to have created at least one category, do you want to create a category? <a class="link-create" href="{% url 'articles:createcategory' %}">click here</a></span>
+    {% endif %}
+
+    <!-- Divider-->
+    <hr class="my-4"/>
+
+    <div class="post-preview">
+        <form class="site-form2" action="{% url 'articles:create' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+            {{form}}
+            <br>
+            <button type="submit" class="btn btn-primary submit">Create</button>
+        </form>
+    </div>
+
+{% endblock %}
+
